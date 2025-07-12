@@ -3,11 +3,11 @@
 case "$1" in
   start)
     echo "Loading aesdchar module..."
-    aesdchar_load
+    /usr/bin/aesdchar_load
     ;;
   stop)
     echo "Unloading aesdchar module..."
-    aesdchar_unload
+    /usr/bin/aesdchar_unload
     ;;
   restart)
     $0 stop
