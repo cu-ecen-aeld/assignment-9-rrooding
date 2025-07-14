@@ -3,11 +3,16 @@
 case "$1" in
   start)
     echo "Loading aesdchar module..."
-    /usr/bin/aesdchar_load
+    modprobe aesdchar
+
+    echo "Creating /dev/aesdchar device node"
+    aesdchar_major=$(grep aesdchar /proc/devices | awk '{print $1}')
+    [ -n "$aesdchar_major" ] && mknod /dev/aesdchar c $aesdchar_major 0
     ;;
   stop)
     echo "Unloading aesdchar module..."
-    /usr/bin/aesdchar_unload
+    rm -f /dev/aesdchar
+    rmmod aesdchar
     ;;
   restart)
     $0 stop
